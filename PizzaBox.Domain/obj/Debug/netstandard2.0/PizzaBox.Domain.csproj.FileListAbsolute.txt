@@ -1,0 +1,16 @@
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.csprojAssemblyReference.cache
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.AssemblyInfoInputs.cache
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.AssemblyInfo.cs
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.deps.json
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.dll
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.pdb
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.dll
+C:\Users\muell\source\repos\PizzaBox\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.pdb
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.deps.json
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.dll
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\bin\Debug\netstandard2.0\PizzaBox.Domain.pdb
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.csprojAssemblyReference.cache
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.AssemblyInfoInputs.cache
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.AssemblyInfo.cs
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.dll
+C:\Revature\P0-Zach-Mueller\PizzaBox.Domain\obj\Debug\netstandard2.0\PizzaBox.Domain.pdb
