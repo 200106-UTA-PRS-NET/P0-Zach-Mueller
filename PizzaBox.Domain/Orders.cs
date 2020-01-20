@@ -7,7 +7,7 @@ namespace PizzaBox.Domain
     {
         public int OrderId { get; set; }
         public decimal TotalCharges { get; set; }
-        public DateTime PlacedAt { get; set; }
+        public string PlacedAt { get; set; }
         public string Username { get; set; }
         public string StoreName { get; set; }
 

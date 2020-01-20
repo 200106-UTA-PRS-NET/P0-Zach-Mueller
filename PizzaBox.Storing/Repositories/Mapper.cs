@@ -38,7 +38,7 @@ namespace PizzaBox.Storing.Repositories
             { 
                 OrderId = order.OrderId,
                 TotalCharges = order.TotalCharges,
-                PlacedAt = order.PlacedAt,
+              //  PlacedAt = order.PlacedAt,
                 Username = order.Username,
                 StoreName = order.StoreName,
 
@@ -51,7 +51,7 @@ namespace PizzaBox.Storing.Repositories
             {
                 OrderId = order.OrderId,
                 TotalCharges = order.TotalCharges,
-                PlacedAt = order.PlacedAt,
+              //  PlacedAt = order.PlacedAt,
                 Username = order.Username,
                 StoreName = order.StoreName,
 

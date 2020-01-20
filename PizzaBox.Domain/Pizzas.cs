@@ -9,6 +9,7 @@ namespace PizzaBox.Domain
         public string Crust { get; set; }
         public string Size { get; set; }
         public string Username { get; set; }
+        public string PizzaType { get; set; }
         public decimal Price { get; set; }
 
         public virtual User UsernameNavigation { get; set; }
