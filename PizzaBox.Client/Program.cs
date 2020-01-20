@@ -90,7 +90,7 @@ namespace PizzaBox.Client
             { Console.WriteLine("Only acceptable choices are '1' and '2'");
                 goto choicefail;
             }
-            int hasOrderedToday = 0;
+            
         MainMenu:
             //Main Menu
             
@@ -107,10 +107,11 @@ namespace PizzaBox.Client
             customerChoice = Console.ReadKey();
             Console.WriteLine("");
 
+            //Order Procedure
             if (customerChoice.Key == ConsoleKey.D1)
             {
                 
-                
+                //Check if user ordered within the last day
                 
              var ordGet = PR.GetOrders();
                  foreach (var ord in ordGet)
@@ -128,7 +129,7 @@ namespace PizzaBox.Client
 
                     
                 
-
+                 //Discloses limitations to customers
                 Console.WriteLine("");
                 Console.WriteLine("NOTICE: WE LIMIT CUSTOMERS TO ONE ORDER DAILY, CAPPED AT $250 PER.");
                 Console.WriteLine("");
@@ -139,6 +140,7 @@ namespace PizzaBox.Client
                 venueCheck = Console.ReadKey();
                 Console.WriteLine("");
 
+                //Customer input
                 if (venueCheck.Key == ConsoleKey.Y)
                 { Console.WriteLine(" "); }
                 else if (venueCheck.Key == ConsoleKey.N)
@@ -213,6 +215,7 @@ namespace PizzaBox.Client
                     goto pizzaSelect;
                 }
 
+                //User picks crust
             crustSelect:
                 Console.WriteLine("");
                 Console.WriteLine("Now select your crust type. It has no baring on price.");
@@ -239,6 +242,7 @@ namespace PizzaBox.Client
                     goto crustSelect;
                 }
 
+                //User picks the size of their pizza
             sizeSelect:
                 Console.WriteLine("");
                 Console.WriteLine("Select the size of this pizza");
@@ -273,6 +277,7 @@ namespace PizzaBox.Client
                     goto sizeSelect;
                 }
 
+                //Check if total order is exceeding 250
                 if (charges > 250)
                 {
                     Console.WriteLine("Pizza cannot be added as it would take total order over $250.");
@@ -289,9 +294,11 @@ namespace PizzaBox.Client
                     }
 
                 }
+                //Add pizza to DB
                 Pizzas delicacy = new Pizzas() { Crust = crustType, Size = pizzaSize, Username = currentUser, PizzaType = pizzaType, Price = price };
                 PR.AddPizza(delicacy);
 
+                //User may choose to add another pizza to their order
                 Console.WriteLine("Pizza added successfully. Add another to this order?");
                 Console.WriteLine("Please be aware that we cap all orders at $250 for supply reasons.");
                 Console.WriteLine("Please enter Y or N (submit order)");
@@ -315,12 +322,15 @@ namespace PizzaBox.Client
                 PR.AddOrders(orderup);
                 Console.WriteLine("");
                 Console.WriteLine("Returning to main menu.");
-                hasOrderedToday = 1;
+                
                 goto MainMenu;
 
             }
+
+            //View user order history 
             else if (customerChoice.Key == ConsoleKey.D2)
             {
+                //Fetch and display orders by username
                 Console.WriteLine("");
                 Console.WriteLine($"Displaying order history for user {currentUser}");
 
@@ -332,10 +342,24 @@ namespace PizzaBox.Client
                     else
                         Console.WriteLine("Could not find any orders placed under your username.");
                 }
+
+                //Fetch and display pizzas by username
+                Console.WriteLine("");
+                Console.WriteLine($"Displaying pizza details for user {currentUser}");
+                var pizGet = PR.GetPizzas();
+                foreach (var piz in pizGet)
+                {
+                    if (piz.Username == currentUser)
+                    { Console.WriteLine($"{piz.PizzaId}, {piz.Crust}, {piz.Size}, {piz.PizzaType}, {piz.Price}"); }
+                    else 
+                    { Console.WriteLine("Nothing to see here."); }
+                }
                 Console.WriteLine("");
                 Console.WriteLine("Returning to main menu.");
                 goto MainMenu;
             }
+
+            //Disclose store locations to user
             else if (customerChoice.Key == ConsoleKey.D3)
             {
                 Console.WriteLine("");
@@ -350,7 +374,13 @@ namespace PizzaBox.Client
                 Console.WriteLine("");
                 Console.WriteLine("As of right now, Arlington is our only location.");
                 Console.WriteLine("We do have plans to open up a new location in Denver within a few months.");
+                Console.WriteLine("");
+                Console.WriteLine("Returning to main menu");
+                goto MainMenu;
+
             }
+
+            //Customer signout
             else if (customerChoice.Key == ConsoleKey.D4)
             {
                 Console.WriteLine("Signing you out.");
@@ -358,6 +388,8 @@ namespace PizzaBox.Client
                 Environment.Exit(0);
             }
 
+
+            //Store option to view all of it's orders
             else if (customerChoice.Key == ConsoleKey.D5)
             {
             Retry:
@@ -367,7 +399,7 @@ namespace PizzaBox.Client
                 
                 string codeEntry = Console.ReadLine();
                 string passCode = "OOP0412";
-
+                //Passcode successful
                 if (codeEntry == passCode)
                 {
                     Console.WriteLine("");
@@ -382,6 +414,7 @@ namespace PizzaBox.Client
                     }
 
                 }
+                //Passcode failure
                 else
                 { 
                     Console.WriteLine("Nuh-uh-uh, you didn't say the magic word!");
@@ -404,6 +437,7 @@ namespace PizzaBox.Client
                 Console.WriteLine("Returning to main menu.");
                 goto MainMenu;
             }
+            //Validation for main menu input
             else
             {
                 Console.WriteLine("Only acceptable choices are 1-5");
