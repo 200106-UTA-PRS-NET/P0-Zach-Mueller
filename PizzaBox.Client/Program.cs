@@ -45,15 +45,29 @@ namespace PizzaBox.Client
             //Returning User
             if (LogReg.Key == ConsoleKey.D1)
             {
+                Login:
+                Console.WriteLine("");
                 Console.WriteLine("Enter Username: ");
                 currentUser = Console.ReadLine();
 
+                Console.WriteLine("");
                 Console.WriteLine("Enter Password: ");
                 string currentPass = Console.ReadLine();
 
 
                 User person = new User() { Username = currentUser, Pass = currentPass };
-                PR.AuthUser(person);
+                var useGet = PR.GetUsers();
+                foreach (var use in useGet)
+                {
+                    if (use.Username == currentUser && use.Pass == currentPass)
+                    { Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}"); }
+                    else
+                    {
+                        Console.WriteLine("Could not find a user with such credentials.");
+                        Console.WriteLine("");
+                        goto Login;
+                    }
+                }
 
 
             }
@@ -62,10 +76,12 @@ namespace PizzaBox.Client
             //New User
             else if (LogReg.Key == ConsoleKey.D2)
             {
+                Register:
+                Console.WriteLine("");
                 Console.WriteLine("Enter a desired username: ");
                 string desiredUser = Console.ReadLine();
 
-
+                Console.WriteLine("");
                 Console.WriteLine("Enter a password: ");
                 string desiredPass = Console.ReadLine();
 
@@ -73,21 +89,36 @@ namespace PizzaBox.Client
                 User person = new User() { Username = desiredUser, Pass = desiredPass };
                 PR.AddUser(person);
 
+                Console.WriteLine("You may now login using the credentials you have created.");
 
-
+                Console.WriteLine("");
                 Console.WriteLine("Enter Username: ");
                  currentUser = Console.ReadLine();
 
+                Console.WriteLine("");
                 Console.WriteLine("Enter Password: ");
                 string currentPass = Console.ReadLine();
                 Console.WriteLine("");
 
                 User newPerson = new User() { Username = currentUser, Pass = currentPass };
-                PR.AuthUser(newPerson);
+                var useGet = PR.GetUsers();
+                foreach (var use in useGet)
+                {
+                    if (use.Username == currentUser && use.Pass == currentPass)
+                    { Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}"); }
+                    else
+                    { Console.WriteLine("Could not find a user with such credentials.");
+                        Console.WriteLine("");
+                        goto Register;
+                    }
+                }
             }
 
             else
-            { Console.WriteLine("Only acceptable choices are '1' and '2'");
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Only acceptable choices are '1' and '2'");
+                Console.WriteLine("");
                 goto choicefail;
             }
             
@@ -156,6 +187,7 @@ namespace PizzaBox.Client
                 ConsoleKeyInfo pizzaCheck;
                 ConsoleKeyInfo sizeCheck;
                 ConsoleKeyInfo additionalPizzaCheck;
+                ConsoleKeyInfo confirmationCheck;
 
 
             pizzaSelect:
@@ -273,6 +305,7 @@ namespace PizzaBox.Client
                 }
                 else
                 {
+                    Console.WriteLine("");
                     Console.WriteLine("Please choose a valid option 1-3");
                     goto sizeSelect;
                 }
@@ -280,6 +313,7 @@ namespace PizzaBox.Client
                 //Check if total order is exceeding 250
                 if (charges > 250)
                 {
+                    Console.WriteLine("");
                     Console.WriteLine("Pizza cannot be added as it would take total order over $250.");
                     Console.WriteLine("Please submit order as is or cancel. Current order will be lost if cancelled.");
                     Console.WriteLine("submit order as is?");
@@ -299,9 +333,10 @@ namespace PizzaBox.Client
                 PR.AddPizza(delicacy);
 
                 //User may choose to add another pizza to their order
+                Console.WriteLine("");
                 Console.WriteLine("Pizza added successfully. Add another to this order?");
                 Console.WriteLine("Please be aware that we cap all orders at $250 for supply reasons.");
-                Console.WriteLine("Please enter Y or N (submit order)");
+                Console.WriteLine("Please enter Y or N ");
                 additionalPizzaCheck = Console.ReadKey();
                 Console.WriteLine("");
 
@@ -309,6 +344,16 @@ namespace PizzaBox.Client
                 { goto pizzaSelect; }
                 if (additionalPizzaCheck.Key == ConsoleKey.N)
                 { Console.WriteLine(""); }
+
+                Console.WriteLine($"Your order total comes to ${charges}");
+                Console.WriteLine("Please enter Y to confirm order or N to abandon order and return to main menu.");
+                confirmationCheck = Console.ReadKey();
+                Console.WriteLine();
+
+                if (confirmationCheck.Key == ConsoleKey.Y)
+                { Console.WriteLine(""); }
+                if (confirmationCheck.Key == ConsoleKey.N)
+                { goto MainMenu; }
 
             //Order submission
             OrderSubmission:
@@ -335,11 +380,16 @@ namespace PizzaBox.Client
                 Console.WriteLine($"Displaying order history for user {currentUser}");
 
                 var ordGet = PR.GetOrders();
+     
                 foreach (var ord in ordGet)
                 {
                     if (ord.Username == currentUser)
+                    {
                         Console.WriteLine($"{ord.OrderId}: ${ord.TotalCharges}, {ord.PlacedAt}, {ord.Username}, {ord.StoreName}");
-                    else
+
+                    }
+
+                    else if (ord.Username == null)
                         Console.WriteLine("Could not find any orders placed under your username.");
                 }
 
@@ -347,11 +397,14 @@ namespace PizzaBox.Client
                 Console.WriteLine("");
                 Console.WriteLine($"Displaying pizza details for user {currentUser}");
                 var pizGet = PR.GetPizzas();
+               
                 foreach (var piz in pizGet)
                 {
                     if (piz.Username == currentUser)
-                    { Console.WriteLine($"{piz.PizzaId}, {piz.Crust}, {piz.Size}, {piz.PizzaType}, {piz.Price}"); }
-                    else 
+                    { Console.WriteLine($"{piz.PizzaId}, {piz.Crust}, {piz.Size}, {piz.PizzaType}, {piz.Price}");
+                       
+                    }
+                   else if (piz.Username == currentUser)
                     { Console.WriteLine("Nothing to see here."); }
                 }
                 Console.WriteLine("");
@@ -383,6 +436,7 @@ namespace PizzaBox.Client
             //Customer signout
             else if (customerChoice.Key == ConsoleKey.D4)
             {
+                Console.WriteLine("");
                 Console.WriteLine("Signing you out.");
                 Console.WriteLine("We hope to serve you again soon");
                 Environment.Exit(0);
@@ -416,7 +470,8 @@ namespace PizzaBox.Client
                 }
                 //Passcode failure
                 else
-                { 
+                {
+                    Console.WriteLine("");
                     Console.WriteLine("Nuh-uh-uh, you didn't say the magic word!");
                     Seriously:
                     Console.WriteLine("1 to try again");
@@ -434,6 +489,7 @@ namespace PizzaBox.Client
                     { goto Seriously; }
 
                 }
+                Console.WriteLine("");
                 Console.WriteLine("Returning to main menu.");
                 goto MainMenu;
             }
