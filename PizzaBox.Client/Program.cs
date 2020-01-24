@@ -60,14 +60,18 @@ namespace PizzaBox.Client
                 foreach (var use in useGet)
                 {
                     if (use.Username == currentUser && use.Pass == currentPass)
-                    { Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}"); }
-                    else
                     {
-                        Console.WriteLine("Could not find a user with such credentials.");
-                        Console.WriteLine("");
-                        goto Login;
+                        Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}");
+                        goto MainMenu;
                     }
+
                 }
+                
+                Console.WriteLine("Could not find a user with such credentials.");
+                Console.WriteLine("");
+                goto Login;
+                    
+                
 
 
             }
@@ -89,6 +93,7 @@ namespace PizzaBox.Client
                 User person = new User() { Username = desiredUser, Pass = desiredPass };
                 PR.AddUser(person);
 
+                Console.WriteLine("");
                 Console.WriteLine("You may now login using the credentials you have created.");
 
                 Console.WriteLine("");
@@ -105,12 +110,17 @@ namespace PizzaBox.Client
                 foreach (var use in useGet)
                 {
                     if (use.Username == currentUser && use.Pass == currentPass)
-                    { Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}"); }
-                    else
-                    { Console.WriteLine("Could not find a user with such credentials.");
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine($"User authenticated successfully. Welcome back {currentUser}");
+                        goto MainMenu;
+                    }
+                    
+                    
+                    Console.WriteLine("Could not find a user with such credentials.");
                         Console.WriteLine("");
                         goto Register;
-                    }
+                    
                 }
             }
 
@@ -165,6 +175,7 @@ namespace PizzaBox.Client
                 Console.WriteLine("NOTICE: WE LIMIT CUSTOMERS TO ONE ORDER DAILY, CAPPED AT $250 PER.");
                 Console.WriteLine("");
                 Console.WriteLine("At this time, our Arlington location is the only available venue.");
+                confirmation:
                 Console.WriteLine("Okay to continue ordering from this location?");
                 Console.WriteLine("Please type Y or N (return to main menu) to confirm");
                 ConsoleKeyInfo venueCheck;
@@ -176,6 +187,8 @@ namespace PizzaBox.Client
                 { Console.WriteLine(" "); }
                 else if (venueCheck.Key == ConsoleKey.N)
                 { goto CustomerOptions; }
+                else
+                { goto confirmation; }
 
                 //Declaring variables for the BIG input mess below
                 string pizzaType;
@@ -336,24 +349,31 @@ namespace PizzaBox.Client
                 Console.WriteLine("");
                 Console.WriteLine("Pizza added successfully. Add another to this order?");
                 Console.WriteLine("Please be aware that we cap all orders at $250 for supply reasons.");
+                really:
                 Console.WriteLine("Please enter Y or N ");
                 additionalPizzaCheck = Console.ReadKey();
                 Console.WriteLine("");
 
                 if (additionalPizzaCheck.Key == ConsoleKey.Y)
                 { goto pizzaSelect; }
-                if (additionalPizzaCheck.Key == ConsoleKey.N)
+                else if (additionalPizzaCheck.Key == ConsoleKey.N)
                 { Console.WriteLine(""); }
+                else
+                { goto really; }
 
                 Console.WriteLine($"Your order total comes to ${charges}");
+                OkayWiseguy:
                 Console.WriteLine("Please enter Y to confirm order or N to abandon order and return to main menu.");
                 confirmationCheck = Console.ReadKey();
                 Console.WriteLine();
 
                 if (confirmationCheck.Key == ConsoleKey.Y)
                 { Console.WriteLine(""); }
-                if (confirmationCheck.Key == ConsoleKey.N)
+                else if(confirmationCheck.Key == ConsoleKey.N)
                 { goto MainMenu; }
+                else
+                { goto OkayWiseguy; }
+
 
             //Order submission
             OrderSubmission:
